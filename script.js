@@ -1,5 +1,6 @@
 const rooms = {
   couloir_1: {
+    label: "Couloir 1",
     image: "1_couloir_1",
     links: [
       { target: "rez_couloir_3", rotation: { x: 0, y: 200, z: 20 } },
@@ -8,6 +9,7 @@ const rooms = {
     ],
   },
   couloir_2: {
+    label: "Couloir 2",
     image: "1_couloir_2",
     links: [
       { target: "couloir_1", rotation: { x: 0, y: -185, z: 0 } },
@@ -18,6 +20,7 @@ const rooms = {
     ],
   },
   couloir_3: {
+    label: "Couloir 3",
     image: "1_couloir_3",
     links: [
       { target: "couloir_1", rotation: { x: 0, y: 3, z: 0 } },
@@ -25,6 +28,7 @@ const rooms = {
     ],
   },
   hall_1: {
+    label: "Hall 1",
     image: "1_hall",
     links: [
       { target: "rez_accueil", rotation: { x: 0, y: 245, z: 30 } },
@@ -33,6 +37,7 @@ const rooms = {
     ],
   },
   passerelle: {
+    label: "Passerelle",
     image: "1_passerelle",
     links: [
       { target: "couloir_3", rotation: { x: 0, y: 205, z: 0 } },
@@ -40,28 +45,33 @@ const rooms = {
     ],
   },
   salle_107: {
+    label: "Salle 107",
     image: "1_salle107",
     links: [{ target: "couloir_2", rotation: { x: 0, y: 45, z: 0 } }],
   },
   salle_111: {
+    label: "Salle 111",
     image: "1_salle111",
     links: [{ target: "couloir_2", rotation: { x: 0, y: 155, z: 0 } }],
   },
   secretariat_1: {
+    label: "Secrétariat 1",
     image: "1_secretariat_1",
     links: [{ target: "couloir_2", rotation: { x: 0, y: 17, z: 0 } }],
   },
   secretariat_2: {
+    label: "Secrétariat 2",
     image: "1_secretariat_2",
     links: [{ target: "passerelle", rotation: { x: 0, y: 235, z: 0 } }],
   },
   hall_2: {
+    label: "Hall 2",
     image: "2_hall",
     links: [{ target: "hall_1", rotation: { x: 0, y: 200, z: 30 } }],
   },
   rez_accueil: {
+    label: "Rez Accueil",
     image: "rez_accueil",
-
     links: [
       { target: "rez_entree", rotation: { x: 0, y: 185, z: 0 } },
       { target: "hall_1", rotation: { x: 0, y: -45, z: 0 } },
@@ -69,14 +79,17 @@ const rooms = {
     ],
   },
   rez_atelier: {
+    label: "Rez Atelier",
     image: "rez_atelier",
     links: [{ target: "rez_couloir_3", rotation: { x: 0, y: 180, z: 0 } }],
   },
   rez_batiment: {
+    label: "Rez Bâtiment",
     image: "rez_batiment",
     links: [{ target: "rez_entree", rotation: { x: 0, y: 2, z: 0 } }],
   },
   rez_couloir_2: {
+    label: "Rez Couloir 2",
     image: "rez_couloir_2",
     links: [
       { target: "rez_couloir", rotation: { x: 0, y: -173, z: 0 } },
@@ -84,6 +97,7 @@ const rooms = {
     ],
   },
   rez_couloir_3: {
+    label: "Rez Couloir 3",
     image: "rez_couloir_3",
     links: [
       { target: "rez_couloir_2", rotation: { x: 0, y: 175, z: 0 } },
@@ -92,6 +106,7 @@ const rooms = {
     ],
   },
   rez_couloir: {
+    label: "Rez Couloir",
     image: "rez_couloir",
     links: [
       { target: "rez_accueil", rotation: { x: 0, y: 180, z: 0 } },
@@ -99,6 +114,7 @@ const rooms = {
     ],
   },
   rez_entree: {
+    label: "Rez Entrée",
     image: "rez_entree",
     links: [
       { target: "rez_accueil", rotation: { x: 0, y: 185, z: 0 } },
@@ -155,7 +171,7 @@ function applyRoom() {
       tooltip.setAttribute("rotation", { x: 0, y: 90, z: 0 });
       tooltip.setAttribute("align", "center");
       tooltip.setAttribute("width", "4");
-      tooltip.setAttribute("value", link.target);
+      tooltip.setAttribute("value", rooms[link.target].label);
       console.log("Affiché");
       sphere.appendChild(tooltip);
     });
