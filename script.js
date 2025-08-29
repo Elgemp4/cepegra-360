@@ -129,7 +129,7 @@ function applyRoom() {
 
     const sphere = document.createElement("a-sphere");
     sphere.setAttribute("position", "-5 0 0");
-    sphere.setAttribute("radius", "0.4");
+    sphere.setAttribute("radius", "0.2");
     sphere.setAttribute("class", "link");
     sphere.setAttribute("material", "shader: flat; color: gray;");
     sphere.setAttribute("sound", "on: click; src: #click-sound");
@@ -149,8 +149,14 @@ function applyRoom() {
     });
 
     sphere.addEventListener("mouseenter", () => {
-      const tooltip = document.createElement("a-entity");
-      tooltip.setAttribute("text", link.target);
+      const tooltip = document.createElement("a-text");
+      tooltip.setAttribute("color", "black");
+      tooltip.setAttribute("position", "0 0.3 0");
+      tooltip.setAttribute("rotation", { x: 0, y: 90, z: 0 });
+      tooltip.setAttribute("align", "center");
+      tooltip.setAttribute("width", "4");
+      tooltip.setAttribute("value", link.target);
+      console.log("Affiché");
       sphere.appendChild(tooltip);
     });
 
