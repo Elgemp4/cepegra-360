@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <audio
+          id="click-sound"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"
+        ></audio>
+
+        <!-- Images. -->
+        <img id="1_couloir_1" src="./images/1_couloir_1.JPG" />
+        <img id="1_couloir_2" src="./images/1_couloir_2.JPG" />
+        <img id="1_couloir_3" src="./images/1_couloir_3.JPG" />
+        <img id="1_hall" src="./images/1_hall.JPG" />
+        <img id="1_passerelle" src="./images/1_passerelle.JPG" />
+        <img id="1_salle107" src="./images/1_salle107.JPG" />
+        <img id="1_salle111" src="./images/1_salle111.JPG" />
+        <img id="1_secretariat_1" src="./images/1_secretariat_1.JPG" />
+        <img id="1_secretariat_2" src="./images/1_secretariat_2.JPG" />
+        <img id="2_hall" src="./images/2_hall.JPG" />
+        <img id="rez_accueil" src="./images/rez_accueil.JPG" />
+        <img id="rez_atelier" src="./images/rez_atelier.JPG" />
+        <img id="rez_batiment" src="./images/rez_batiment.JPG" />
+        <img id="rez_couloir_2" src="./images/rez_couloir_2.JPG" />
+        <img id="rez_couloir_3" src="./images/rez_couloir_3.JPG" />
+        <img id="rez_couloir" src="./images/rez_couloir.JPG" />
+        <img id="rez_entree" src="./images/rez_entree.JPG" />
+
+        <img
+          id="city-thumb"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg"
+        />
+        <img
+          id="cubes"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg"
+        />
+        <img
+          id="cubes-thumb"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg"
+        />
+        <img
+          id="sechelt"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg"
+        />
+        <img
+          id="sechelt-thumb"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg"
+        />
+      </a-assets>
+
+      <!-- 360-degree image. -->
+      <a-sky id="image-360" radius="10" src="#city"></a-sky>
+
+      <!-- Link template we will build. -->
+      <a-entity id="links"></a-entity>
+
+      <!-- Camera + Cursor. -->
+      <a-camera position="0 0 0 ">
+        <a-cursor
+          id="cursor"
+          animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
+          animation__clickreset="property: scale; to: 0.1 0.1 0.1; dur: 1; startEvents: animationcomplete__click"
+          animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing"
+        ></a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>
