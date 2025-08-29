@@ -1,134 +1,49 @@
-const rooms = {
-  couloir_1: {
-    label: "Couloir 1",
-    image: "1_couloir_1",
-    links: [
-      { target: "rez_couloir_3", rotation: { x: 0, y: 200, z: 20 } },
-      { target: "couloir_2", rotation: { x: 0, y: 0, z: 0 } },
-      { target: "couloir_3", rotation: { x: 0, y: -130, z: 0 } },
-    ],
+AFRAME.registerShader("myshader", {
+  schema: {
+    uMap: { type: "map", is: "uniform" },
   },
-  couloir_2: {
-    label: "Couloir 2",
-    image: "1_couloir_2",
-    links: [
-      { target: "couloir_1", rotation: { x: 0, y: -185, z: 0 } },
-      { target: "hall_1", rotation: { x: 0, y: -90, z: 0 } },
-      { target: "salle_107", rotation: { x: 0, y: -200, z: 0 } },
-      { target: "salle_111", rotation: { x: 0, y: -75, z: 0 } },
-      { target: "secretariat_1", rotation: { x: 0, y: -75, z: 10 } },
-    ],
-  },
-  couloir_3: {
-    label: "Couloir 3",
-    image: "1_couloir_3",
-    links: [
-      { target: "couloir_1", rotation: { x: 0, y: 3, z: 0 } },
-      { target: "passerelle", rotation: { x: 0, y: 183, z: 0 } },
-    ],
-  },
-  hall_1: {
-    label: "Hall 1",
-    image: "1_hall",
-    links: [
-      { target: "rez_accueil", rotation: { x: 0, y: 245, z: 30 } },
-      { target: "hall_2", rotation: { x: 0, y: 195, z: 0 } },
-      { target: "couloir_2", rotation: { x: 0, y: 170, z: 0 } },
-    ],
-  },
-  passerelle: {
-    label: "Passerelle",
-    image: "1_passerelle",
-    links: [
-      { target: "couloir_3", rotation: { x: 0, y: 205, z: 0 } },
-      { target: "secretariat_2", rotation: { x: 0, y: 7, z: 0 } },
-    ],
-  },
-  salle_107: {
-    label: "Salle 107",
-    image: "1_salle107",
-    links: [{ target: "couloir_2", rotation: { x: 0, y: 45, z: 0 } }],
-  },
-  salle_111: {
-    label: "Salle 111",
-    image: "1_salle111",
-    links: [{ target: "couloir_2", rotation: { x: 0, y: 155, z: 0 } }],
-  },
-  secretariat_1: {
-    label: "Secrétariat 1",
-    image: "1_secretariat_1",
-    links: [{ target: "couloir_2", rotation: { x: 0, y: 17, z: 0 } }],
-  },
-  secretariat_2: {
-    label: "Secrétariat 2",
-    image: "1_secretariat_2",
-    links: [{ target: "passerelle", rotation: { x: 0, y: 235, z: 0 } }],
-  },
-  hall_2: {
-    label: "Hall 2",
-    image: "2_hall",
-    links: [{ target: "hall_1", rotation: { x: 0, y: 200, z: 30 } }],
-  },
-  rez_accueil: {
-    label: "Rez Accueil",
-    image: "rez_accueil",
-    links: [
-      { target: "rez_entree", rotation: { x: 0, y: 185, z: 0 } },
-      { target: "hall_1", rotation: { x: 0, y: -45, z: 0 } },
-      { target: "rez_couloir", rotation: { x: 0, y: -90, z: 0 } },
-    ],
-  },
-  rez_atelier: {
-    label: "Rez Atelier",
-    image: "rez_atelier",
-    links: [{ target: "rez_couloir_3", rotation: { x: 0, y: 180, z: 0 } }],
-  },
-  rez_batiment: {
-    label: "Rez Bâtiment",
-    image: "rez_batiment",
-    links: [{ target: "rez_entree", rotation: { x: 0, y: 2, z: 0 } }],
-  },
-  rez_couloir_2: {
-    label: "Rez Couloir 2",
-    image: "rez_couloir_2",
-    links: [
-      { target: "rez_couloir", rotation: { x: 0, y: -173, z: 0 } },
-      { target: "rez_couloir_3", rotation: { x: 0, y: 95, z: 0 } },
-    ],
-  },
-  rez_couloir_3: {
-    label: "Rez Couloir 3",
-    image: "rez_couloir_3",
-    links: [
-      { target: "rez_couloir_2", rotation: { x: 0, y: 175, z: 0 } },
-      { target: "couloir_1", rotation: { x: 0, y: -15, z: -20 } },
-      { target: "rez_atelier", rotation: { x: 0, y: 65, z: 0 } },
-    ],
-  },
-  rez_couloir: {
-    label: "Rez Couloir",
-    image: "rez_couloir",
-    links: [
-      { target: "rez_accueil", rotation: { x: 0, y: 180, z: 0 } },
-      { target: "rez_couloir_2", rotation: { x: 0, y: 0, z: 0 } },
-    ],
-  },
-  rez_entree: {
-    label: "Rez Entrée",
-    image: "rez_entree",
-    links: [
-      { target: "rez_accueil", rotation: { x: 0, y: 185, z: 0 } },
-      { target: "rez_batiment", rotation: { x: 0, y: 10, z: 0 } },
-    ],
-  },
-};
+  vertexShader: `
+                varying vec2 vUv;
+
+                void main() {
+                    vec4 worldPosition = modelViewMatrix * vec4( position, 1.0 );
+                    vec3 vWorldPosition = worldPosition.xyz;
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                }
+                `,
+  fragmentShader: `
+                varying vec2 vUv;
+                uniform sampler2D uMap;
+
+                void main() {
+                    vec2 uv = vUv;
+                    vec4 tex1 = texture2D(uMap, uv * 1.0);
+                    if (tex1.g > 0.5)
+                        gl_FragColor = tex1;
+                    else
+                        gl_FragColor = vec4(0,0,0,0);
+                }`,
+});
+
+let rooms;
+
+async function start() {
+  const result = await fetch("./rooms.json");
+  rooms = await result.json();
+
+  applyRoom();
+}
+
+start();
 
 let current = "secretariat_1";
 
 const $linksContainer = document.querySelector("#links");
 const $sky = document.querySelector("#image-360");
+const $cursor = document.querySelector("#cursor");
 
-applyRoom();
+$cursor.setAttribute("material", "color", "#ffffff");
 
 function applyRoom() {
   const room = rooms[current];
@@ -140,14 +55,15 @@ function applyRoom() {
 
   // Create new links
   room.links.forEach((link) => {
+    let timeoutId;
     const linkEntity = document.createElement("a-entity");
     linkEntity.setAttribute("rotation", link.rotation);
 
     const sphere = document.createElement("a-sphere");
     sphere.setAttribute("position", "-5 0 0");
     sphere.setAttribute("radius", "0.2");
+    sphere.setAttribute("material", "shader: standard; color: #e01b24;");
     sphere.setAttribute("class", "link");
-    sphere.setAttribute("material", "shader: flat; color: gray;");
     sphere.setAttribute("sound", "on: click; src: #click-sound");
     sphere.setAttribute("animation__pulse", {
       property: "scale",
@@ -166,18 +82,35 @@ function applyRoom() {
 
     sphere.addEventListener("mouseenter", () => {
       const tooltip = document.createElement("a-text");
-      tooltip.setAttribute("color", "black");
+
+      tooltip.setAttribute("color", "#e01b24");
       tooltip.setAttribute("position", "0 0.3 0");
       tooltip.setAttribute("rotation", { x: 0, y: 90, z: 0 });
       tooltip.setAttribute("align", "center");
       tooltip.setAttribute("width", "4");
+      tooltip.setAttribute("material", "shader:myshader;");
       tooltip.setAttribute("value", rooms[link.target].label);
-      console.log("Affiché");
       sphere.appendChild(tooltip);
+
+      // Animate to red
+      $cursor.setAttribute(
+        "animation__color",
+        "property: material.color; to: #e01b24; dur: 2000; easing: easeInOutSine"
+      );
+
+      timeoutId = setTimeout(() => {
+        current = link.target;
+
+        applyRoom();
+      }, 2000);
     });
 
     sphere.addEventListener("mouseleave", () => {
       sphere.innerHTML = "";
+      $cursor.removeAttribute("animation__color");
+      $cursor.setAttribute("material", "color", "#ffffff");
+
+      clearTimeout(timeoutId);
     });
 
     linkEntity.appendChild(sphere);
