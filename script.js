@@ -133,12 +133,29 @@ function applyRoom() {
     sphere.setAttribute("class", "link");
     sphere.setAttribute("material", "shader: flat; color: gray;");
     sphere.setAttribute("sound", "on: click; src: #click-sound");
-    sphere.setAttribute("tooltip", link.target);
+    sphere.setAttribute("animation__pulse", {
+      property: "scale",
+      dir: "alternate",
+      dur: 1000, // 1 second per pulse
+      loop: true,
+      easing: "easeInOutSine",
+      to: "1.4 1.4 1.4", // maximum scale
+    });
 
     // Navigation
     sphere.addEventListener("click", () => {
       current = link.target;
       applyRoom();
+    });
+
+    sphere.addEventListener("mouseenter", () => {
+      const tooltip = document.createElement("a-entity");
+      tooltip.setAttribute("text", link.target);
+      sphere.appendChild(tooltip);
+    });
+
+    sphere.addEventListener("mouseleave", () => {
+      sphere.innerHTML = "";
     });
 
     linkEntity.appendChild(sphere);
